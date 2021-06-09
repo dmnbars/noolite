@@ -1,0 +1,27 @@
+---
+- name: deploy
+  hosts: rasp
+  tasks:
+    - name: login github docker registry
+      docker_login:
+        registry: docker.pkg.github.com
+        username: dmnbars
+        password: "{{ registry_token }}"
+
+    - name: start noolite
+      docker_container:
+        name: "noolite"
+        image: docker.pkg.github.com/dmnbars/noolite/noolite:latest
+        state: started
+        pull: yes
+        restart_policy: always
+        devices:
+          - "/dev/ttyUSB0:/dev/ttyUSB0"
+        env:
+          LOG_LEVEL: debug
+          SERIAL_PORT: /dev/ttyUSB0
+          MQTT_HOST: "{{ mqtt_host }}"
+          MQTT_PORT: "{{ mqtt_port }}"
+          MQTT_USERNAME: "{{ mqtt_user }}"
+          MQTT_PASSWORD: "{{ mqtt_password }}"
+          POWER_OUTLETS: "{{ noolite_power_outlets|to_json }}"
