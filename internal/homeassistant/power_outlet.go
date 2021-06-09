@@ -18,7 +18,7 @@ type PowerOutlet struct {
 
 type PowerOutletConfig struct {
 	Channel int    `json:"channel"`
-	Id      string `json:"id"`
+	ID      string `json:"id"`
 	Name    string `json:"name"`
 	Prefix  string `json:"prefix"`
 }
@@ -32,15 +32,15 @@ func (p PowerOutletConfig) prefix() string {
 }
 
 func (p PowerOutletConfig) commandTopic() string {
-	return fmt.Sprintf("%s/switch/%s/command", p.prefix(), p.Id)
+	return fmt.Sprintf("%s/switch/%s/command", p.prefix(), p.ID)
 }
 
 func (p PowerOutletConfig) configTopic() string {
-	return fmt.Sprintf("%s/switch/%s/config", p.prefix(), p.Id)
+	return fmt.Sprintf("%s/switch/%s/config", p.prefix(), p.ID)
 }
 
 func (p PowerOutletConfig) stateTopic() string {
-	return fmt.Sprintf("%s/switch/%s/state", p.prefix(), p.Id)
+	return fmt.Sprintf("%s/switch/%s/state", p.prefix(), p.ID)
 }
 
 func NewPowerOutlet(
@@ -131,7 +131,7 @@ func (p *PowerOutlet) setState(payload string) {
 	if err := p.mqttClient.Send(p.config.stateTopic(), payload); err != nil {
 		p.logger.Errorw(
 			"can't change state",
-			"id", p.config.Id,
+			"id", p.config.ID,
 			"state", payload,
 		)
 	}
@@ -140,7 +140,7 @@ func (p *PowerOutlet) setState(payload string) {
 func (p *PowerOutlet) sendConfig() error {
 	config := map[string]string{
 		"name":          p.config.Name,
-		"unique_id":     p.config.Id,
+		"unique_id":     p.config.ID,
 		"command_topic": p.config.commandTopic(),
 		"state_topic":   p.config.stateTopic(),
 	}
