@@ -1,0 +1,12 @@
+---
+registry_token: "{{ vault_registry_token }}"
+
+mqtt_host: "{{ vault_mqtt_host }}"
+mqtt_port: "{{ vault_mqtt_port }}"
+mqtt_user: noolite
+mqtt_password: "{{ vault_mqtt_password }}"
+
+noolite_power_outlets:
+  - channel: 0
+    id: noolite_power_outlet_1
+    name: Noolite Power Outlet
