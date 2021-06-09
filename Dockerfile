@@ -1,4 +1,4 @@
-FROM alpine:latest as alpine
+FROM arm64v8/alpine:latest as alpine
 RUN apk --no-cache add tzdata zip ca-certificates
 WORKDIR /usr/share/zoneinfo
 # -0 means no compression.  Needed because go's
