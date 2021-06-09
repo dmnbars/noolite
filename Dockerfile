@@ -8,7 +8,7 @@ RUN zip -r -0 /zoneinfo.zip .
 FROM golang:1.16 AS builder
 WORKDIR /gomod/noolite
 ADD . .
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm go build -o /go/bin/noolite ./cmd
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o /go/bin/noolite ./cmd
 
 FROM scratch
 # configurations
