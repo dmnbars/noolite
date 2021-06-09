@@ -1,0 +1,6 @@
+.idea
+.env
+vendor
+.git
+.github
+ansible
