@@ -15,7 +15,7 @@ type Config struct {
 
 	MqttHost     string `env:"MQTT_HOST"`
 	MqttPort     string `env:"MQTT_PORT"`
-	MqttClientId string `env:"MQTT_CLIENT_ID"`
+	MqttClientID string `env:"MQTT_CLIENT_ID"`
 	MqttUsername string `env:"MQTT_USERNAME,unset"`
 	MqttPassword string `env:"MQTT_PASSWORD,unset"`
 

@@ -17,7 +17,7 @@ func NewClient(
 	logger *zap.SugaredLogger,
 	host string,
 	port string,
-	clientId string,
+	clientID string,
 	user string,
 	password string,
 ) (*Client, error) {
@@ -27,11 +27,11 @@ func NewClient(
 		AddBroker(server).
 		SetUsername(user).
 		SetPassword(password).
-		SetClientID(clientId).
+		SetClientID(clientID).
 		SetCleanSession(true)
 
 	connOpts.SetTLSConfig(
-		&tls.Config{InsecureSkipVerify: true, ClientAuth: tls.NoClientCert},
+		&tls.Config{InsecureSkipVerify: true, ClientAuth: tls.NoClientCert}, // nolint
 	)
 
 	client := mqtt.NewClient(connOpts)

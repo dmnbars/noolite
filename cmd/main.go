@@ -34,7 +34,7 @@ func main() {
 		logger.Named("mqtt"),
 		cfg.MqttHost,
 		cfg.MqttPort,
-		cfg.MqttClientId,
+		cfg.MqttClientID,
 		cfg.MqttUsername,
 		cfg.MqttPassword,
 	)
@@ -45,7 +45,7 @@ func main() {
 	for _, powerOutletConfig := range cfg.PowerOutlets {
 		_, err := homeassistant.NewPowerOutlet(
 			powerOutletConfig,
-			logger.Named(powerOutletConfig.Id),
+			logger.Named(powerOutletConfig.ID),
 			mqttClient,
 			nooliteClient,
 		)
