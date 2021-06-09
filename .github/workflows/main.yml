@@ -1,0 +1,72 @@
+name: main
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
+
+      - run: go test -v ./...
+
+  golangci:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: golangci/golangci-lint-action@v2
+        with:
+          version: latest
+
+  build:
+    name: build docker image and push to registry
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    needs: [tests,golangci]
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: docker/login-action@v1
+        with:
+          registry: docker.pkg.github.com
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: |
+            docker.pkg.github.com/${{ github.repository }}/noolite:${{ github.sha }}
+
+  latest:
+    name: tag latest docker image
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    needs: [build]
+    steps:
+      - uses: docker/login-action@v1
+        with:
+          registry: docker.pkg.github.com
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: docker pull docker.pkg.github.com/${{ github.repository }}/noolite:${{ github.sha }}
+
+      - run: docker tag docker.pkg.github.com/${{ github.repository }}/noolite:${{ github.sha }} docker.pkg.github.com/${{ github.repository }}/noolite:latest
+
+      - run: docker push docker.pkg.github.com/${{ github.repository }}/noolite:latest
