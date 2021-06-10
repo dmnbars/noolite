@@ -1,6 +1,7 @@
 ---
 - name: deploy
   hosts: rasp
+  gather_facts: no
   tasks:
     - name: login github docker registry
       docker_login:
@@ -15,6 +16,7 @@
         state: started
         pull: yes
         restart_policy: always
+        restart: yes
         devices:
           - "/dev/ttyUSB0:/dev/ttyUSB0"
         env:
