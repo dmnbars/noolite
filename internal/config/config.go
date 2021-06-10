@@ -20,6 +20,7 @@ type Config struct {
 	MqttPassword string `env:"MQTT_PASSWORD,unset"`
 
 	PowerOutlets []homeassistant.PowerOutletConfig `env:"POWER_OUTLETS" envDefault:"[]"`
+	Lights       []homeassistant.LightConfig       `env:"LIGHTS" envDefault:"[]"`
 }
 
 func NewConfig() (*Config, error) {
@@ -27,6 +28,7 @@ func NewConfig() (*Config, error) {
 
 	if err := env.ParseWithFuncs(&cfg, map[reflect.Type]env.ParserFunc{
 		reflect.TypeOf([]homeassistant.PowerOutletConfig{}): powerOutletsParser,
+		reflect.TypeOf([]homeassistant.LightConfig{}):       lightsParser,
 	}); err != nil {
 		return &cfg, err
 	}
@@ -36,6 +38,15 @@ func NewConfig() (*Config, error) {
 
 func powerOutletsParser(value string) (interface{}, error) {
 	var powerOutlets []homeassistant.PowerOutletConfig
+	if err := json.Unmarshal([]byte(value), &powerOutlets); err != nil {
+		return nil, err
+	}
+
+	return powerOutlets, nil
+}
+
+func lightsParser(value string) (interface{}, error) {
+	var powerOutlets []homeassistant.LightConfig
 	if err := json.Unmarshal([]byte(value), &powerOutlets); err != nil {
 		return nil, err
 	}

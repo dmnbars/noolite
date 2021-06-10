@@ -54,6 +54,18 @@ func main() {
 		}
 	}
 
+	for _, lightConfig := range cfg.Lights {
+		_, err := homeassistant.NewLight(
+			lightConfig,
+			logger.Named(lightConfig.ID),
+			mqttClient,
+			nooliteClient,
+		)
+		if err != nil {
+			panic(err)
+		}
+	}
+
 	sig := <-waitExitSignal()
 	logger.Infow("stopping by signal", "signal", sig.String())
 }
