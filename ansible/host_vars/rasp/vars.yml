@@ -9,4 +9,9 @@ mqtt_password: "{{ vault_mqtt_password }}"
 noolite_power_outlets:
   - channel: 0
     id: noolite_power_outlet_1
-    name: Noolite Power Outlet
+    name: noolite power outlet
+
+noolite_lights:
+  - channel: 1
+    id: noolite_light_1
+    name: bedroom light
