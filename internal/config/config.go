@@ -19,16 +19,18 @@ type Config struct {
 	MqttUsername string `env:"MQTT_USERNAME,unset"`
 	MqttPassword string `env:"MQTT_PASSWORD,unset"`
 
-	Switches []homeassistant.SwitchConfig `env:"SWITCHES" envDefault:"[]"`
-	Lights   []homeassistant.LightConfig  `env:"LIGHTS" envDefault:"[]"`
+	Switches      []homeassistant.SwitchConfig       `env:"SWITCHES" envDefault:"[]"`
+	Lights        []homeassistant.LightConfig        `env:"LIGHTS" envDefault:"[]"`
+	BinarySensors []homeassistant.BinarySensorConfig `env:"BINARY_SENSORS" envDefault:"[]"`
 }
 
 func NewConfig() (*Config, error) {
 	var cfg Config
 
 	if err := env.ParseWithFuncs(&cfg, map[reflect.Type]env.ParserFunc{
-		reflect.TypeOf([]homeassistant.SwitchConfig{}): switchesParser,
-		reflect.TypeOf([]homeassistant.LightConfig{}):  lightsParser,
+		reflect.TypeOf([]homeassistant.SwitchConfig{}):       switchesParser,
+		reflect.TypeOf([]homeassistant.LightConfig{}):        lightsParser,
+		reflect.TypeOf([]homeassistant.BinarySensorConfig{}): binarySensorsParser,
 	}); err != nil {
 		return &cfg, err
 	}
@@ -47,6 +49,15 @@ func switchesParser(value string) (interface{}, error) {
 
 func lightsParser(value string) (interface{}, error) {
 	var items []homeassistant.LightConfig
+	if err := json.Unmarshal([]byte(value), &items); err != nil {
+		return nil, err
+	}
+
+	return items, nil
+}
+
+func binarySensorsParser(value string) (interface{}, error) {
+	var items []homeassistant.BinarySensorConfig
 	if err := json.Unmarshal([]byte(value), &items); err != nil {
 		return nil, err
 	}

@@ -66,6 +66,18 @@ func main() {
 		}
 	}
 
+	for _, binarySensorConfig := range cfg.BinarySensors {
+		_, err := homeassistant.NewBinarySensor(
+			binarySensorConfig,
+			logger.Named(binarySensorConfig.ID),
+			mqttClient,
+			nooliteClient,
+		)
+		if err != nil {
+			panic(err)
+		}
+	}
+
 	sig := <-waitExitSignal()
 	logger.Infow("stopping by signal", "signal", sig.String())
 }

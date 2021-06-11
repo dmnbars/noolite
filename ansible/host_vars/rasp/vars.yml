@@ -15,3 +15,9 @@ lights:
   - channel: 1
     id: noolite_light_1
     name: bedroom light
+
+binary_sensors:
+  - channel: 5
+    id: noolite_door
+    name: door
+    icon: "hass:door"
