@@ -3,4 +3,4 @@ package homeassistant
 const payloadOn = "ON"
 const payloadOff = "OFF"
 
-const defaultPrefix = "homeassistant"
+const prefix = "homeassistant"
