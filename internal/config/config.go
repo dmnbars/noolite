@@ -2,6 +2,7 @@ package config
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 
 	"github.com/caarlos0/env/v6"
@@ -42,6 +43,13 @@ func switchesParser(value string) (interface{}, error) {
 	var items []homeassistant.SwitchConfig
 	if err := json.Unmarshal([]byte(value), &items); err != nil {
 		return nil, err
+	}
+
+	// TODO: make normal validation
+	for _, item := range items {
+		if !item.IsValid() {
+			return nil, fmt.Errorf("switch config (#%s) isn't valid", item.ID)
+		}
 	}
 
 	return items, nil

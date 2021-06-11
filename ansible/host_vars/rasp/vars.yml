@@ -10,6 +10,12 @@ switches:
   - channel: 0
     id: noolite_power_outlet_1
     name: noolite power outlet
+    component: switch
+
+  - channel: 2
+    id: bathroom_fan
+    name: bathroom fan
+    component: fan
 
 lights:
   - channel: 1
