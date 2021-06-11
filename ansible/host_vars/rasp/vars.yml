@@ -6,12 +6,12 @@ mqtt_port: "{{ vault_mqtt_port }}"
 mqtt_user: noolite
 mqtt_password: "{{ vault_mqtt_password }}"
 
-noolite_power_outlets:
+switches:
   - channel: 0
     id: noolite_power_outlet_1
     name: noolite power outlet
 
-noolite_lights:
+lights:
   - channel: 1
     id: noolite_light_1
     name: bedroom light
