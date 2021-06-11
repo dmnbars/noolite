@@ -63,7 +63,7 @@ const (
 	CmdBrightStepDown
 	CmdBrightStepUp
 	CmdBrightReg
-	CmdBind
+	CmdBind Cmd = iota + 1
 	CmdRollColour
 	CmdSwitchColour
 	CmdSwitchMode

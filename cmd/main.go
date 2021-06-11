@@ -5,11 +5,12 @@ import (
 	"os/signal"
 	"syscall"
 
+	"gitlab.com/dmnbars/noolite/internal/homeassistant"
+	"gitlab.com/dmnbars/noolite/internal/mqtt"
+
 	"gitlab.com/dmnbars/noolite/internal/noolite"
 
 	"gitlab.com/dmnbars/noolite/internal/config"
-	"gitlab.com/dmnbars/noolite/internal/homeassistant"
-	"gitlab.com/dmnbars/noolite/internal/mqtt"
 	"go.uber.org/zap"
 )
 

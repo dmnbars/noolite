@@ -17,21 +17,26 @@ type Switch struct {
 }
 
 type SwitchConfig struct {
-	Channel int    `json:"channel"`
-	ID      string `json:"id"`
-	Name    string `json:"name"`
+	Channel   int    `json:"channel"`
+	ID        string `json:"id"`
+	Name      string `json:"name"`
+	Component string `json:"component"`
 }
 
 func (p SwitchConfig) commandTopic() string {
-	return fmt.Sprintf("%s/switch/%s/command", prefix, p.ID)
+	return fmt.Sprintf("%s/%s/%s/command", prefix, p.Component, p.ID)
 }
 
 func (p SwitchConfig) configTopic() string {
-	return fmt.Sprintf("%s/switch/%s/config", prefix, p.ID)
+	return fmt.Sprintf("%s/%s/%s/config", prefix, p.Component, p.ID)
 }
 
 func (p SwitchConfig) stateTopic() string {
-	return fmt.Sprintf("%s/switch/%s/state", prefix, p.ID)
+	return fmt.Sprintf("%s/%s/%s/state", prefix, p.Component, p.ID)
+}
+
+func (p SwitchConfig) IsValid() bool {
+	return p.Component == switchComponent || p.Component == fanComponent
 }
 
 func NewSwitch(
