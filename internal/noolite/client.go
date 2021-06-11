@@ -91,7 +91,6 @@ func (c *Client) read() {
 			c.logger.Error(err)
 			continue
 		}
-		c.logger.Debugf("%d", int(buf[0]))
 
 		if buf[0] == RespSt {
 			resp = make([]byte, 0)
