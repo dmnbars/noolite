@@ -26,5 +26,5 @@
           MQTT_PORT: "{{ mqtt_port }}"
           MQTT_USERNAME: "{{ mqtt_user }}"
           MQTT_PASSWORD: "{{ mqtt_password }}"
-          POWER_OUTLETS: "{{ noolite_power_outlets|to_json }}"
-          LIGHTS: "{{ noolite_lights|to_json }}"
+          SWITCHES: "{{ switches|to_json }}"
+          LIGHTS: "{{ lights|to_json }}"

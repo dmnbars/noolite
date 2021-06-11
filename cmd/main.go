@@ -42,10 +42,10 @@ func main() {
 		panic(err)
 	}
 
-	for _, powerOutletConfig := range cfg.PowerOutlets {
-		_, err := homeassistant.NewPowerOutlet(
-			powerOutletConfig,
-			logger.Named(powerOutletConfig.ID),
+	for _, switchConfig := range cfg.Switches {
+		_, err := homeassistant.NewSwitch(
+			switchConfig,
+			logger.Named(switchConfig.ID),
 			mqttClient,
 			nooliteClient,
 		)

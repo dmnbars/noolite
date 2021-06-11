@@ -23,24 +23,16 @@ type LightConfig struct {
 	Prefix  string `json:"prefix"`
 }
 
-func (l LightConfig) prefix() string {
-	if l.Prefix == "" {
-		return defaultPrefix
-	}
-
-	return l.Prefix
-}
-
 func (l LightConfig) commandTopic() string {
-	return fmt.Sprintf("%s/light/%s/command", l.prefix(), l.ID)
+	return fmt.Sprintf("%s/light/%s/command", prefix, l.ID)
 }
 
 func (l LightConfig) configTopic() string {
-	return fmt.Sprintf("%s/light/%s/config", l.prefix(), l.ID)
+	return fmt.Sprintf("%s/light/%s/config", prefix, l.ID)
 }
 
 func (l LightConfig) stateTopic() string {
-	return fmt.Sprintf("%s/light/%s/state", l.prefix(), l.ID)
+	return fmt.Sprintf("%s/light/%s/state", prefix, l.ID)
 }
 
 func NewLight(
