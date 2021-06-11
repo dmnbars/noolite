@@ -28,3 +28,4 @@
           MQTT_PASSWORD: "{{ mqtt_password }}"
           SWITCHES: "{{ switches|to_json }}"
           LIGHTS: "{{ lights|to_json }}"
+          BINARY_SENSORS: "{{ binary_sensors|to_json }}"
