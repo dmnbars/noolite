@@ -17,10 +17,10 @@ type BinarySensor struct {
 }
 
 type BinarySensorConfig struct {
-	Channel int    `json:"channel"`
-	ID      string `json:"id"`
-	Name    string `json:"name"`
-	Icon    string `json:"icon"`
+	Channel     int    `json:"channel"`
+	ID          string `json:"id"`
+	Name        string `json:"name"`
+	DeviceClass string `json:"device_class"`
 }
 
 func (p BinarySensorConfig) configTopic() string {
@@ -87,10 +87,10 @@ func (s *BinarySensor) setState(payload string) {
 
 func (s *BinarySensor) sendConfig() error {
 	config := map[string]string{
-		"name":        s.config.Name,
-		"unique_id":   s.config.ID,
-		"state_topic": s.config.stateTopic(),
-		"icon":        s.config.Icon,
+		"name":         s.config.Name,
+		"unique_id":    s.config.ID,
+		"state_topic":  s.config.stateTopic(),
+		"device_class": s.config.DeviceClass,
 	}
 
 	payload, err := json.Marshal(config)
