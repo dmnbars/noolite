@@ -20,4 +20,4 @@ binary_sensors:
   - channel: 5
     id: noolite_door
     name: door
-    icon: "hass:door"
+    device_class: door
