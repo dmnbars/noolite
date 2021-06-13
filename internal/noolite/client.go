@@ -43,6 +43,15 @@ func (c *Client) Send(command Command) {
 	c.commands <- command
 }
 
+func (c *Client) BindRX(channel int) {
+	c.Send(NewCommand(
+		ModeRx,
+		CommandCtrBindOn,
+		channel,
+		0,
+	))
+}
+
 func (c *Client) handleResponses() {
 	for response := range c.responses {
 		c.logger.Infow("response", "response", response.String())
