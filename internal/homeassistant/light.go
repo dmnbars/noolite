@@ -57,7 +57,8 @@ func NewLight(
 }
 
 func (l *Light) responseHandler(response noolite.Response) {
-	if response.GetCommand() == noolite.CmdSendState {
+	command := response.GetCommand()
+	if command == noolite.CmdSendState {
 		if response.GetD2() == 0 {
 			l.setStateOff()
 			return
@@ -69,7 +70,7 @@ func (l *Light) responseHandler(response noolite.Response) {
 		return
 	}
 
-	if response.GetCommand() == noolite.CmdSwitch {
+	if command == noolite.CmdSwitch || command == noolite.CmdOn || command == noolite.CmdOff {
 		l.nooliteClient.Send(noolite.NewCommand(
 			noolite.ModeFTX,
 			noolite.CommandCtrSend,
