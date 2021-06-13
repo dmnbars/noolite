@@ -61,7 +61,8 @@ func NewSwitch(
 }
 
 func (s *Switch) responseHandler(response noolite.Response) {
-	if response.GetCommand() == noolite.CmdSendState {
+	command := response.GetCommand()
+	if command == noolite.CmdSendState {
 		if response.GetD2() == 0 {
 			s.setStateOff()
 			return
@@ -73,7 +74,7 @@ func (s *Switch) responseHandler(response noolite.Response) {
 		return
 	}
 
-	if response.GetCommand() == noolite.CmdSwitch {
+	if command == noolite.CmdSwitch || command == noolite.CmdOn || command == noolite.CmdOff {
 		s.nooliteClient.Send(noolite.NewCommand(
 			noolite.ModeFTX,
 			noolite.CommandCtrSend,
