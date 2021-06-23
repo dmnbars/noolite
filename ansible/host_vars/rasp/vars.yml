@@ -27,3 +27,18 @@ binary_sensors:
     id: noolite_door
     name: door
     device_class: door
+
+  - channel: 3
+    id: noolite_bathroom_moisture
+    name: bathroom moisture
+    device_class: moisture
+
+  - channel: 4
+    id: noolite_washer_moisture
+    name: washer moisture
+    device_class: moisture
+
+  - channel: 6
+    id: noolite_dishwasher_moisture
+    name: dishwasher moisture
+    device_class: moisture
