@@ -52,6 +52,15 @@ func (c *Client) BindRX(channel int) {
 	))
 }
 
+func (c *Client) BindFTX(channel int) {
+	c.Send(NewCommand(
+		ModeFTX,
+		CommandCtrSend,
+		channel,
+		CmdBind,
+	))
+}
+
 func (c *Client) handleResponses() {
 	for response := range c.responses {
 		c.logger.Infow("response", "response", response.String())
