@@ -5,10 +5,10 @@ WORKDIR /usr/share/zoneinfo
 # tz loader doesn't handle compressed data.
 RUN zip -r -0 /zoneinfo.zip .
 
-FROM golang:1.16 AS builder
+FROM golang:1.17 AS builder
 WORKDIR /gomod/noolite
 ADD . .
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o /go/bin/noolite ./cmd
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 go build -o /go/bin/noolite ./cmd
 
 FROM scratch
 # configurations
