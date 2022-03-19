@@ -17,6 +17,11 @@ switches:
     name: bathroom fan
     component: fan
 
+  - channel: 9
+    id: noolite_power_outlet_2
+    name: noolite power outlet camera
+    component: switch
+
 lights:
   - channel: 1
     id: noolite_light_1

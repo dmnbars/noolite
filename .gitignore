@@ -2,3 +2,4 @@
 .env
 vendor
 ansible/vault.key
+.DS_Store
